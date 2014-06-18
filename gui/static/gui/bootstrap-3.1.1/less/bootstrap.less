@@ -1,0 +1,175 @@
+// out: /home/xoma/PycharmProjects/HubbleProject/gui/static/gui/css/style.css, compress: true
+// Core variables and mixins
+@import "variables.less";
+@import "mixins.less";
+
+// Reset
+@import "normalize.less";
+@import "print.less";
+
+// Core CSS
+@import "scaffolding.less";
+@import "type.less";
+@import "code.less";
+@import "grid.less";
+@import "tables.less";
+@import "forms.less";
+@import "buttons.less";
+
+// Components
+@import "component-animations.less";
+@import "glyphicons.less";
+@import "dropdowns.less";
+@import "button-groups.less";
+@import "input-groups.less";
+@import "navs.less";
+@import "navbar.less";
+@import "breadcrumbs.less";
+@import "pagination.less";
+@import "pager.less";
+@import "labels.less";
+@import "badges.less";
+@import "jumbotron.less";
+@import "thumbnails.less";
+@import "alerts.less";
+@import "progress-bars.less";
+@import "media.less";
+@import "list-group.less";
+@import "panels.less";
+@import "wells.less";
+@import "close.less";
+
+// Components w/ JavaScript
+@import "modals.less";
+@import "tooltip.less";
+@import "popovers.less";
+@import "carousel.less";
+
+// Utility classes
+@import "utilities.less";
+@import "responsive-utilities.less";
+
+#load {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: url('http://vk.com/images/progress_gray_inv.gif') no-repeat 50% 50%;
+    background-color: #f7f7f7;
+    background: url('http://vk.com/images/progress_gray_inv.gif') no-repeat 50% 50%, -webkit-radial-gradient(#fff, #fff, #f7f7f7, #f7f7f7);
+    background: url('http://vk.com/images/progress_gray_inv.gif') no-repeat 50% 50%, -moz-radial-gradient(#fff, #fff, #f7f7f7, #f7f7f7);
+    background: url('http://vk.com/images/progress_gray_inv.gif') no-repeat 50% 50%, -o-radial-gradient(#fff, #fff, #f7f7f7, #f7f7f7);
+    background: url('http://vk.com/images/progress_gray_inv.gif') no-repeat 50% 50%, -ms-radial-gradient(#fff, #fff, #f7f7f7, #f7f7f7);
+    background: url('http://vk.com/images/progress_gray_inv.gif') no-repeat 50% 50%, radial-gradient(#fff, #fff, #f7f7f7, #f7f7f7);
+}
+
+.fa {
+    font-size: 1.3em;
+    top: 2px;
+    position: relative;
+}
+
+a {
+    
+    & .fa-cog {
+        transition: all 2.0s;
+        -o-transition: all 2.0s;
+        -ms-transition: all 2.0s;
+        -moz-transition: all 2.0s;
+        -webkit-transition: all 2.0s;
+    }
+    
+    &:hover .fa-cog {
+        transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=4);
+    }
+}
+
+html, body {
+    background-color: #f7f7f7;
+}
+
+.tab-content {
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-radius: 0px 0px 6px 6px;
+    padding: 20px;
+    height: 100%;
+    
+    .max-height {
+        margin: 10px -10px;
+        max-height: 363px;
+        overflow: auto;
+        padding: 0px 3px 0px 10px;
+    }
+}
+.load {
+    height: 148px;
+    background: url('http://vk.com/images/progress_gray_inv.gif') no-repeat 50% 50%;
+}
+.panel-body {
+    div {
+        padding: 8px 3px;
+        .fa {
+            font-size: 1em;
+            float: right;
+            top: -3px;
+        }
+        &:hover {
+            padding: 11px 6px;
+            background-color: #f5f5f5;
+            margin: -3px;
+            border-radius: 3px;
+        }
+    }
+}
+
+.undisplay {
+    display: none;
+}
+.display {
+    display: block;
+}
+
+.modal-heigth {
+    max-height: 188px;
+    overflow: auto;
+    margin: 0px -7px -20px 0px;
+}
+
+.alert {
+    position: absolute;
+    z-index: 1050;
+    width: 100%;
+    top: 0px;
+    opacity: 0.0;
+    display: none;
+    transition: all 2.0s;
+    -o-transition: all 2.0s;
+    -ms-transition: all 2.0s;
+    -moz-transition: all 2.0s;
+    -webkit-transition: all 2.0s;
+    &.in {
+        opacity: .95;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+ max-height:vertical {
+    background-color: rgba(0,255,0,0.5);
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}

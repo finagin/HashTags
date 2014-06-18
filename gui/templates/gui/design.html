@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="HubbleProject">
+    <head>
+        {% load staticfiles %}
+        <title></title>
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <!--link rel="stylesheet" type="text/css" href="{% static 'gui/css/design.css' %}"-->
+        <link rel="stylesheet" type="text/css" href="{% static 'gui/css/style.css' %}">
+        
+        <script>
+            //setTimeout(function(){location.reload();},7000);
+        </script>
+    </head>
+    <body ng-controller="MainCtrl" ng-mousemove="fn()">
+        <div id="load" ng-show="loadAnimation"></div>
+        <div id="alert" class="alert alert-success">Сообщение отправленно</div>
+        <tabs>
+            <pane  name="Новый пост" icon="fa fa-pencil">
+                
+                <form name="postForm" role="form" ng-controller="PostCtrl">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="fa fa-users"></span></span>
+                            <select ng-model="selectGroup" class="form-control" ng-options="group.name for group in groups" ng-change="getTags()" required>
+                                <option value="" disabled selected>Выбор группы</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="fa fa-slack"></span></span>
+                            <select ng-model="selectTag" class="form-control" ng-options="tag.text for tag in tags" required>
+                                <option value="" disabled selected>Выбор хэштега</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea ng-model="message" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <a ng-click="send();" ng-disabled="postForm.$invalid" class="btn btn-primary">Отправить</a>
+                    </div>
+                </form>
+            </pane>
+            <pane name="Настройки"  icon="fa fa-cog">
+                <div ng-controller="SettingsCtrl">
+
+                    <input type="text" class="form-control" ng-model="searh" placeholder="Поиск">
+                    <div class="max-height">
+                        <div class="panel-group">
+                          <div class="panel panel-default" ng-repeat="group in groups | filter:searh"> <!--  | orderBy:'gid.name' -->
+                            <div class="panel-heading">
+                                    <span style="max-width:100px">{$ group.gid.name $}</span> <a class="btn btn-primary btn-xs" ng-show="group.gid.is_admin" style="float:right" ng-click="modal(group.gid)">Добавить хэштег</a>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                  <p ng-hide="group.tags" class="text-danger">Создайте хэштег</p>
+                                <div ng-repeat="tag in group.tags">
+                                    #{$ tag.text $} 
+                                    <a class="btn btn-danger btn-xs fa fa-trash-o" ng-show="tag.isfollow" ng-click="unFollow(tag.hid, tag, group)"></a>
+                                    <a class="btn btn-primary btn-xs fa fa-plus" ng-show="tag.isfollow == false" ng-click="follow(tag.hid, tag)"></a>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-backdrop fade in undisplay" ng-class="{'display':display}" ng-click="display=false"></div>
+                    <div class="modal fade bs-example-modal-sm fade in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" ng-class="{'display':display}">
+                        <div style="width:100%; height:100%; position:absolute;" ng-click="close()"></div>
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Создание хэштега</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addForm" name="addForm" role="form">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><span class="fa fa-slack"></span></span>
+                                                <input type="text" ng-model="newHash" class="form-control" placeholder="Хэштег" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><span class="fa fa-users"></span></span>
+                                                <input type="text" ng-model="mSearh" class="form-control" placeholder="Поиск пользователя">
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="modal-heigth">
+                                            <div class="" ng-class="{'load':ready}"></div>
+                                            <div class="checkbox" ng-repeat="member in members | filter:mSearh">
+                                                <label>
+                                                    <input type="checkbox" ng-model="member.check"> {$ member.first_name + ' ' + member.last_name $}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Отмена</button>
+                                    <button type="button" class="btn btn-primary" form="addForm" ng-disabled="addForm.$invalid" ng-click="create(addForm)">Создать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </pane>
+        </tabs>
+        <script src="//vk.com/js/api/xd_connection.js?2" type="text/javascript"></script>
+        <script type="text/javascript" src="{% static 'gui/js/angular/angular.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'gui/js/design.js' %}"></script>
+    </body>
+</html>
