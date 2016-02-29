@@ -85,5 +85,15 @@ USE_TZ = True
 
 MEDIA_ROOT = '/home/timefor1/domains/timefornews.djangohost.name/public_html/media/'
 MEDIA_URL = '/media/'
-STATIC_ROOT = '/home/timefor1/domains/timefornews.djangohost.name/public_html/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
